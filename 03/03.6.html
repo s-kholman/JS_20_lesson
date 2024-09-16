@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PI</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>PI</h1>
+
+    <script type="text/javascript">
+
+
+        const anonFunc = function (d) {
+            let l;
+            l = d * Math.PI;
+            return l
+        }
+        const a = window.prompt('Введите число', '2');
+        window.document.write('<p>', anonFunc(a), '</p>')
+    </script>
+
+</body>
+</html>

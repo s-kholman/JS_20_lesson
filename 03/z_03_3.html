@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание 3-3</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Задание 3-3</h1>
+<table>
+    <script type="text/javascript">
+
+        let arr1 = [[10, 20], 30, [40, 50], 60, [70, 80, 90, 100]]
+        let arr2 = ['[10, 20]', 36, [40, '50'], 60, ['70, 80', 90, 100]]
+
+        sum = 0;
+        count = 0;
+        function average (arr) {
+            for (let i = 0; i <= arr.length-1; i++) {
+                if (typeof arr[i] == 'number'){
+                    sum += arr[i]
+                    count += 1
+                }
+            }
+            return sum / count
+        }
+
+        window.document.write('<p>', average(arr2), '</p>')
+
+    </script>
+</table>
+</body>
+</html>

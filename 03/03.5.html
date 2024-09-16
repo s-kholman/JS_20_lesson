@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Факториал</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Факториал</h1>
+
+    <script type="text/javascript">
+        function factorial(val) {
+            if (val == 1) {
+                return 1;
+            } else {
+                return val * factorial(val - 1)
+            }
+        }
+        const a = window.prompt('Введите число', '2');
+        window.document.write('<p>', factorial(a), '</p>')
+    </script>
+
+</body>
+</html>

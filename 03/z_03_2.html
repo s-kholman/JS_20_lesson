@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание 3-2</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Задание 3-2</h1>
+<table>
+    <script type="text/javascript">
+
+        //10, 20, 30, 40, 50, 60, 70, 80, 90, 100
+        //10, '20', 30, '40', 50, '60', 70, '80', 90, 100
+
+        sum = 0;
+        count = 0;
+        function average () {
+            for (let i = 0; i <= arguments.length-1; i++) {
+                if (typeof arguments[i] == 'number'){
+                    sum += arguments[i]
+                    count += 1
+                }
+            }
+            return sum / count
+        }
+
+        window.document.write('<p>', average(10, '20', 30, '40', 50, '60', 70, '80', 90, 100), '</p>')
+
+    </script>
+</table>
+</body>
+</html>

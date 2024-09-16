@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание №3</title>
+</head>
+<body>
+<h1>Средне арифмитическое</h1>
+<script type="text/javascript">
+let count = 0;
+let ins = 0;
+    while (true) {
+        let number = +window.prompt('Введите число');
+        ins += number
+
+        if (number == 0){
+            window.document.write('<p>', ins / count, '</p>')
+            break;
+        } else {
+            ++count
+        }
+    }
+</script>
+</body>
+</html>
