@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>События</title>
+    <style type="text/css">
+        section, nav {
+            display: flex;
+            justify-content: center;
+        }
+        section {
+            height: 300px;
+        }
+        section img {
+            display: block;
+            height: 300px;
+        }
+        nav {
+            width: 50%;
+            margin: 30px auto auto;
+        }
+        nav a {
+            width: 20pt;
+            height: 20pt;
+            font-size: 20pt;
+            line-height: 20pt;
+            text-align: center;
+            margin: auto 10px;
+            border: thin solid grey;
+            color: black;
+            background-color: white;
+            cursor: pointer;
+        }
+        nav a.active {
+            color: white;
+            background-color: black;
+            cursor: auto;
+        }
+        #preview {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background: left/contain no-repeat;
+            display: none;
+        }
+        #preview.active {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<section>
+    <img src="images/1.jpg" id="output">
+</section>
+<nav id="buttonset">
+    <a href="images/1.jpg" class="active">1</a>
+    <a href="images/2.jpg">2</a>
+    <a href="images/3.jpg">3</a>
+</nav>
+<div id="preview"></div>
+</body>
+</html>
+<script type="text/javascript">
+    const buttonset = window.document.getElementById('buttonset');
+    const preview = window.document.getElementById('preview');
+    const output = window.document.getElementById('output');
+    const buttons = window.document.querySelectorAll('nav a')
+    let current = buttons[0];
+
+    function showPreview(evt) {
+        if (evt.target != this) {
+            preview.style.left = evt.pageX + 'px';
+            preview.style.top = evt.pageY + 'px';
+            preview.style.backgroundImage = 'url(' + evt.target.href + ')';
+            preview.className = 'active';
+        }
+    }
+
+    function hidePreview(evt) {
+        if (evt.target != this) {
+            preview.className = '';
+        }
+    }
+
+    function showImage(evt) {
+        if (evt.target != this) {
+            current = evt.target;
+            output.src = evt.target.href;
+            buttons.forEach((el) => {
+                if (el == evt.target)
+                    el.className = 'active';
+                else
+                    el.className = '';
+            });
+            evt.preventDefault();
+        }
+    }
+
+    function showContextMenu(evt) {
+        evt.preventDefault();
+    }
+
+    function checkPreview(evt) {
+        if (evt.target.className === 'active') {
+            evt.stopPropagation();
+        }
+    }
+
+    window.document.body.onkeydown = function (event){
+
+        switch (event.which) {
+            case 37:
+                for (let y = 0; y <= buttons.length; ++y) {
+                    if (current == buttons[0]) {
+                        anyKeySlides(buttons.length-1);
+                        break;
+                    } else if (current == buttons[y]){
+                        anyKeySlides(y-1);
+                        break;
+                    }
+                }
+                break;
+            case 39:
+                for (let r = 0; r <= buttons.length; ++r) {
+                    if (current == buttons[buttons.length - 1]) {
+                        anyKeySlides(0);
+                        break
+                    } else if (current == buttons[r]){
+                        anyKeySlides(r+1);
+                        break;
+                    }
+                }
+                break;
+        }
+
+        function anyKeySlides(key) {
+            for (let y = 0; y <= buttons.length -1; ++y) {
+                buttons[y].className = '';
+            }
+            current = buttons[key];
+            output.src = buttons[key].href;
+            buttons[key].className = 'active';
+        }
+    };
+
+    buttonset.addEventListener('click', showImage);
+    buttonset.addEventListener('mouseover', checkPreview, true);
+    buttonset.addEventListener('mouseover', showPreview);
+    buttonset.addEventListener('mouseout', hidePreview);
+    output.addEventListener('contextmenu', showContextMenu);
+
+</script>

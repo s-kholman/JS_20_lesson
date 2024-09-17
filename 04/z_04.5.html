@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Сортировка по возрастанию - четные / нечетные</h1>
+<script type="text/javascript">
+    const ins = window.prompt('Сортировка чисел', '6,2,3,4,5,1').split(',');
+
+    ins.sort();
+
+    ins.sort(function (el1, el2){
+        return (el1 % 2) - (el2 % 2);
+    });
+    window.document.write('<p>', ins  ,'</p>')
+
+</script>
+</body>
+</html>

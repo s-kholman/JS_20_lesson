@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Среднее арифмитическое</h1>
+<script type="text/javascript">
+    const ins = window.prompt('Среднее арифмитическое', '1,2,3,4,5,6').split(',');
+
+    let sum = ins.reduce((s, el) => parseInt(s) + parseInt(el));
+
+    window.document.write('<p>', sum / ins.length ,'</p>')
+
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Исключительные ситуации</title>
+    <script src=""></script>
+</head>
+<body>
+<h1>Исключительные ситуации</h1>
+<script>
+    let n;
+    window.document.write('<p>');
+    try {
+        n = someFunc(123);
+        window.document.write(n);
+    }
+    catch (exception) {
+        if (exception.name == "ReferenceError")
+            window.document.write('Функция someFunc не объявленна. ',
+                'Привяжите к странице файл somfunc.js c ее объявлением')
+        else
+            window.document.write('Возникла ошибка ', exception.name, ': ', exception.message)
+    }
+    finally {
+        window.document.write('</p>')
+    }
+</script>
+</body>
+</html>

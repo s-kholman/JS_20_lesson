@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Вывод даты в формате /число/название месяца/год/</h1>
+<script type="text/javascript">
+    let date = new Date();
+    const monthName = date.toLocaleString('default', { month: 'long' });
+    window.document.write('<p>', date.getDate()+' '+monthName+' '+date.getFullYear()+' г.' ,'</p>')
+</script>
+</body>
+</html>

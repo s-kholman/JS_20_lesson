@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Генерация исключений</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Генерация исключений</h1>
+<table>
+<script>
+    function circleLength(d) {
+        let l;
+        if (typeof d != 'number') {
+            const ex = new TypeError();
+            ex.message = 'Допустимы только числа';
+            throw ex;
+        }
+        l = d * Math.PI;
+        return l;
+    }
+    window.document.write('<tr><td>yte</td><td>')
+
+    try {
+        window.document.write(circleLength('yte'));
+    }
+    catch (ex) {
+        window.document.write(ex.message);
+    }
+    finally {
+        window.document.write('</td></tr>')
+    }
+
+</script>
+</table>
+</body>
+</html>

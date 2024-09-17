@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Среднее арифметическое</title>
+    </head>
+    <body>
+        <h1>Среднее арифметическое</h1>
+        <script type="text/javascript">
+            const s = window.prompt('Введите список чисел', '');
+            console.log(s)
+            function avg(x){
+                if (s === null){
+                    const ex = new TypeError();
+                    ex.message = 'Пользователь нажал отмену';
+                    throw ex;
+                }
+                const cs = s.split(',');
+                let sum = 0;
+                cs.forEach((el) => {sum += +el;});
+                return  avg = sum / cs.length;
+            }
+
+            try {
+                window.document.write('<p>', avg(s), '</p>');
+            } catch (ex) {
+                window.document.write('<p>', ex.message, '</p>');
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            border: 1px solid #a1a1a1;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Вывод углов sin/cos/tan</h1>
+<table>
+    <tr>
+        <td>Угол</td>
+        <td>Синус</td>
+        <td>Косинус</td>
+        <td>Тангенс</td>
+    </tr>
+    <script type="text/javascript">
+        const degree = [0, 15, 30, 45, 60, 75, 90];
+        for (i = 0; i<=degree.length-1; i++) {
+            window.document.write('<tr>');
+                window.document.write('<td>',degree[i],'</td>');
+                window.document.write('<td>',Math.sin(radian(degree[i])).toPrecision(6),'</td>');
+                window.document.write('<td>',Math.cos(radian(degree[i])).toPrecision(6),'</td>');
+                window.document.write('<td>',Math.tan(radian(degree[i])).toPrecision(6),'</td>');
+            window.document.write('</tr>');
+        }
+
+        function radian(x) {
+            return x * Math.PI / 180;
+        }
+    </script>
+</table>
+</body>
+</html>
