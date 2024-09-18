@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Коды и обозначение нажатых клавиш</title>
+    <style>
+        .container {
+            width: 350px;
+            margin: auto;
+        }
+        .child {
+            border: solid 1px black;
+            height: 100px;
+            width: 100px;
+            text-align: center;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="child" id="key"></div>
+    <div class="child" id="keyTo10"></div>
+    <div class="child" id="keyTo16"></div>
+</div>
+
+</body>
+</html>
+<script>
+    let key = document.getElementById('key');
+    let keyTo10 = document.getElementById('keyTo10');
+    let keyTo16 = document.getElementById('keyTo16');
+    window.document.body.onkeydown = function (event){
+        key.innerText = event.key;
+        keyTo10.innerText = event.which;
+        keyTo16.innerText = event.which.toString(16);
+    }
+</script>

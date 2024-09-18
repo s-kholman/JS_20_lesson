@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMLElement</title>
+</head>
+<body>
+<p>Язык программирования</p>
+<p id="par1">JavaScript</p>
+<p id="par2">JavaScript</p>
+</body>
+</html>
+<script>
+    const par1 = document.getElementById('par1');
+    const par2 = document.getElementById('par2');
+
+    const p1 = document.getElementsByTagName('p')[0];
+    const s1 = '<strong>JavaScript</strong> - '
+
+    p1.insertAdjacentHTML('afterbegin', s1);
+
+    const s2 = '<p>Применяется в веб-разработке</p>'
+
+    p1.insertAdjacentHTML('afterend', s2);
+
+    par1.innerHTML = 'Язык программирования <em>' + par1.innerHTML + '</em>';
+
+    par2.textContent = 'Язык программирования' + par2.innerText;
+</script>

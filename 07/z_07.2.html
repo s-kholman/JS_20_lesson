@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Перемещаемый элемент</title>
+    <style type="text/css">
+        #el {
+            position: absolute;
+            left: 20px;
+            top: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+            cursor: all-scroll;
+        }
+    </style>
+</head>
+<body>
+<h1>Перемещаемый элемент</h1>
+<div id="el"></div>
+</body>
+</html>
+<script type="text/javascript">
+    const el = document.getElementById('el');
+    let lastX = 0, lastY = 0;
+    function mMove(evt) {
+        el.style.left = evt.clientX - lastX + el.offsetLeft + 'px';
+        el.style.top = evt.clientY - lastY + el.offsetTop + 'px';
+        lastX = evt.clientX;
+        lastY = evt.clientY;
+    }
+    function mUp() {
+        el.removeEventListener('mousemove', mMove);
+        el.removeEventListener('mouseup', mUp);
+    }
+    el.addEventListener('mousedown', (evt) => {
+        lastX = evt.clientX;
+        lastY = evt.clientY;
+        el.addEventListener('mousemove', mMove);
+        el.addEventListener('mouseup', mUp);
+    });
+</script>

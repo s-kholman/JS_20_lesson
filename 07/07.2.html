@@ -122,5 +122,20 @@
         el.addEventListener('click', navigate)
     });
 
-
+    container.addEventListener('scroll', (evt) => {
+        let i, anchor, y, a;
+        for (i = 0; i < anchors.length; ++i) {
+            anchor = anchors[i];
+            y = anchor.getBoundingClientRect().top;
+            if (y > 0 && container.clientHeight) {
+                links.forEach((l) => {
+                    if (l.href.endsWith(anchor.id))
+                        l.classList.add('active')
+                    else
+                        l.classList.remove('active')
+                });
+                break;
+            }
+        }
+    });
 </script>

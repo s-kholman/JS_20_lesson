@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Описание текстового редактора</title>
+    <script src="7.8.js"></script>
+</head>
+<body>
+
+
+</body>
+</html>
+<script type="text/javascript">
+    let h1 = document.createElement('h1');
+    h1.textContent = atom.name;
+    document.body.appendChild(h1);
+    let p = document.createElement('p');
+    p.textContent = atom.desc;
+    document.body.appendChild(p);
+    p = document.createElement('p');
+    p.textContent = 'Достоинства:';
+    document.body.appendChild(p);
+
+    let ul = document.createElement('ul');
+    let li = document.createElement('li');
+
+    for (let y = 0; y <= atom.pros.length-1; ++y) {
+        li = document.createElement('li');
+        li.textContent = atom.pros[y];
+        ul.appendChild(li);
+    }
+    document.body.appendChild(ul);
+    p = document.createElement('p');
+    p.textContent = 'Недостатки:';
+    document.body.appendChild(p);
+
+    ul = document.createElement('ul');
+    for (let y = 0; y <= atom.contras.length-1; ++y) {
+        li = document.createElement('li');
+        li.textContent = atom.contras[y];
+        ul.appendChild(li);
+    }
+    document.body.appendChild(ul);
+
+    let a = document.createElement('a');
+    a.href = atom.site
+    a.textContent = 'Официальный сайт';
+
+    document.body.appendChild(a);
+</script>

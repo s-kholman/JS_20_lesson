@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Длина окружности</title>
+        <script type="text/javascript" src="../03/3.8.js"></script>
+    </head>
+    <style>
+        table {
+            border: solid 1px black;
+        }
+        td{
+            border: solid 1px black;
+        }
+        th{
+            border: solid 1px black;
+        }
+    </style>
+    <body>
+        <h1>Длина окружности</h1>
+    </body>
+</html>
+<script type="text/javascript">
+    const ds = [2, 5, 10, 20];
+    let i;
+    const table = document.createElement('table');
+    let row = document.createElement('tr');
+    let cell = document.createElement('th');
+    let text = document.createTextNode('Диаметр');
+
+    cell.appendChild(text);
+    row.appendChild(cell);
+
+    cell = document.createElement('th');
+    text = document.createTextNode('Длинна окружности');
+    cell.appendChild(text);
+    row.appendChild(cell);
+    table.appendChild(row);
+
+    for (i = 0; i < ds.length; ++i) {
+        row = document.createElement('tr');
+        cell = document.createElement('td');
+        cell.textContent = ds[i];
+        row.appendChild(cell);
+        cell = document.createElement('td');
+        cell.textContent = circleLength(ds[i]);
+        row.appendChild(cell);
+        table.appendChild(row);
+    }
+
+    document.body.appendChild(table);
+
+</script>
