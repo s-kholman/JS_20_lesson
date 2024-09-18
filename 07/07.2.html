@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Программная навигация</title>
+        <style type="text/css">
+            nav, section {
+                position: fixed;
+                box-sizing: border-box;
+            }
+            nav {
+                left: 10px;
+                top: 70px;
+                width: 220px;
+                border: thin solid grey;
+            }
+            .jslink {
+                display: block;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 18pt;
+                color: blue;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .active {
+                color: white;
+                background-color: blue;
+            }
+            section {
+                left: 270px;
+                top: 70px;
+                right: 10px;
+                bottom: 10px;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Программная навигация</h1>
+        <nav>
+            <a href="#vsc" class="jslink">Visual Studio Code</a>
+            <a href="#atom" class="jslink">Atom</a>
+            <a href="#notepadpp" class="jslink">Notepad++</a>
+        </nav>
+        <section>
+            <h2 id="vsc">Visual Studio Code</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>развитые инструменты для написания программного кода;</li>
+                <li>&laquo;умная&raquo; подстановка языковых конструкций;</li>
+                <li>интеграция с исполняющими средами (Google Chrome, PHP,
+                    Node.js и др.);</li>
+                <li>встроенный полнофункциональный отладчик;</li>
+                <li>большое количество расширений;</li>
+                <li>удобные средства для установки расширений и управления
+                    ими;</li>
+                <li>широкие возможности настройки (включая темы оформления).</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>не очень удобные клавиатурные комбинации;</li>
+                <li>довольно большой объем;</li>
+                <li>не очень высокое быстродействие на больших файлах.</li>
+            </ul>
+            <p><a href="https://code.visualstudio.com/">Официальный сайт</a></p>
+            <h2 id="atom">Atom</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>поддержка практически всех языков, используемых в промышленном
+                    программировании;</li>
+                <li>удобные клавиатурные комбинации;</li>
+                <li>огромное количество расширений;</li>
+                <li>удобные средства для установки расширений и управления
+                    ими;</li>
+                <li>широкие возможности настройки (включая темы оформления).</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>некоторые полезные инструменты изначально отсутствуют
+                    (исправляется расширениями);</li>
+                <li>очень большой объем;</li>
+                <li>низкое быстродействие на больших файлах.</li>
+            </ul>
+            <p><a href="https://atom.io/">Официальный сайт</a></p>
+            <h2 id="notepadpp">Notepad++</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>поддержка многих языков, используемых в промышленном
+                    программировании;</li>
+                <li>удобные клавиатурные комбинации;</li>
+                <li>компактность;</li>
+                <li>исключительное быстродействие.</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>крайне бедный набор инструментов;</li>
+                <li>небольшое количество расширений.</li>
+            </ul>
+            <p><a href="https://notepad-plus-plus.org/">Официальный сайт</a></p>
+        </section>
+    </body>
+</html>
+<script>
+    const links = document.querySelectorAll('.jslink');
+    const container = document.getElementsByTagName('section') [0];
+    const anchors = document.querySelectorAll('h2[id]');
+
+    function navigate() {
+        let e = document.querySelector('nav .active');
+
+        if (e)
+            e.classList.remove('active');
+
+        this.classList.add('active');
+    }
+
+    links.forEach( (el) => {
+        el.addEventListener('click', navigate)
+    });
+
+
+</script>

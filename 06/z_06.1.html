@@ -135,9 +135,11 @@
         }
 
         function anyKeySlides(key) {
-            for (let y = 0; y <= buttons.length -1; ++y) {
+            /*for (let y = 0; y <= buttons.length -1; ++y) {
                 buttons[y].className = '';
-            }
+            }*/
+            window.document.getElementsByClassName('active')[0].className = '';
+            //acive.className  = '';
             current = buttons[key];
             output.src = buttons[key].href;
             buttons[key].className = 'active';

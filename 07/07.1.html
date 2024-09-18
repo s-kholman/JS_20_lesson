@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Стильная полоса прокрутки</title>
+        <style type="text/css">
+            #container, #scrollbar, #scrollbar div {
+                position: absolute;
+                box-sizing: border-box;
+            }
+            #container {
+                left: 10px;
+                top: 70px;
+                width: 400px;
+                height: 300px;
+                padding: 5px;
+                overflow: hidden;
+            }
+            #scrollbar {
+                left: 420px;
+                top: 70px;
+                width: 20px;
+                height: 300px;
+                border: thin solid black;
+                border-radius: 10px;
+            }
+            #scrollbar div {
+                left: 0px;
+                top: 0px;
+                width: 18px;
+                height: 38px;
+                background-color: grey;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Стильная полоса прокрутки</h1>
+        <div id="container">
+            <h2>Visual Studio Code</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>развитые инструменты для написания программного кода;</li>
+                <li>&laquo;умная&raquo; подстановка языковых конструкций;</li>
+                <li>интеграция с исполняющими средами (Google Chrome, PHP,
+                    Node.js и др.);</li>
+                <li>встроенный полнофункциональный отладчик;</li>
+                <li>большое количество расширений;</li>
+                <li>удобные средства для установки расширений и управления
+                    ими;</li>
+                <li>широкие возможности настройки (включая темы оформления).</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>не очень удобные клавиатурные комбинации;</li>
+                <li>довольно большой объем;</li>
+                <li>не очень высокое быстродействие на больших файлах.</li>
+            </ul>
+            <p><a href="https://code.visualstudio.com/">Официальный сайт</a></p>
+        </div>
+        <div id="scrollbar">
+            <div></div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    const container = document.getElementById('container');
+    const scrollbar = document.getElementById('scrollbar');
+    const handle = scrollbar.firstElementChild;
+
+    let lastpost = 0;
+
+    handle.addEventListener('mousedown', function (evt) {
+        lastpost = evt.clentY;
+        this.addEventListener('mousemove', mMove);
+        this.addEventListener('mouseup', mUp);
+    });
+
+    function mMove(evt) {
+        let d = evt.clientY - lastpost;
+        let y = this.offsetTop + d, cy;
+        if (y > 0 && y < 262) {}
+        this.style = 'top:' + y +'px;';
+        cy = (container.scrollHeight - container.clientHeight) * y / 262;
+        container.scrollTop = cy;
+        lastpost = evt.clientY;
+    }
+
+    function mUp(evt) {
+        this.removeEventListener('mousemove', mMove);
+        this.removeEventListener('mouseup', mUp);
+    }
+</script>
