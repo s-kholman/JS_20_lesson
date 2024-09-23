@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS-код для создания рамки</title>
+        <style type="text/css">
+            td {
+                padding: 5px;
+            }
+            tr:last-child td {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>CSS-код для создания рамки</h1>
+        <form>
+            <table>
+                <tr><td>Толщина</td>
+                <td><input type="text" id="width" size="6" maxlength="6"
+                value="thin" required></td></tr>
+                <tr><td>Стиль:</td>
+                <td><select id="style">
+                    <option value="solid">Сплошная</option>
+                    <option value="dotted">Пунктирная</option>
+                    <option value="dashed">Штриховая</option>
+                    <option value="double">Двойная</option>
+                    <option value="groove">Желоб</option>
+                    <option value="ridge">Выступ</option>
+                    <option value="inset">Выпуклая</option>
+                    <option value="outset">Вдавленная</option>
+                </select></td></tr>
+                <tr><td>Цвет</td><td><input type="color" id="color"
+                value="#cccccc"></td></tr>
+                <tr><td colspan="2"><input type="checkbox" id="rounded">
+                Скругленные углы</td></tr>
+                <tr><td>Радиус скругления</td>
+                <td><input type="text" id="radius" size="5" maxlength="5"
+                disabled required></td></tr>
+                <tr><td colspan="2"><input type="submit"
+                value="Сгенерировать код"></td></tr>
+            </table>
+        </form>
+        <pre id="output"></pre>
+    </body>
+</html>
+<script type="text/javascript">
+    const rex = /^[0-9]+(px|pt|%)$/i
+    const form = document.forms[0];
+    const output = document.getElementById('output');
+    function checkValue() {
+        if (this.value)
+            //if (this.value.endsWith('px'))
+            if (rex.test(this.value))
+                this.setCustomValidity('');
+            else
+                this.setCustomValidity('Укажите единицу измерения px (пикселы)');
+    }
+    form.elements[0].addEventListener('change', checkValue);
+    form.elements[4].addEventListener('change', checkValue);
+    form.elements[3].addEventListener('change', () => {
+        form.elements[4].disabled = !form.elements[3].checked;
+    });
+    form.addEventListener('submit', (evt) => {
+        let s = 'border: ' + form.elements[0].value + ' ' +
+            form.elements[1].options[form.elements[1].selectedIndex].value +
+            ' ' + form.elements[2].value + ';\r\n';
+        if (form.elements[3].checked)
+            s += 'border-radius: ' + form.elements[4].value + ';';
+        output.textContent = s;
+        evt.preventDefault();
+    });
+</script>

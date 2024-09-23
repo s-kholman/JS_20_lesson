@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS-код для создания рамки</title>
+        <style type="text/css">
+            td {
+                padding: 5px;
+            }
+            tr:last-child td {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>CSS-код для создания рамки</h1>
+        <form>
+        <table>
+            <tr><td>Толщина</td>
+            <td>
+                <input type="text" id="width" size="6" maxlength="6">
+                <div id="widthError"></div>
+            </td>
+            </tr>
+            <tr><td>Стиль:</td>
+            <td><select id="style">
+                <option value="solid">Сплошная</option>
+                <option value="dotted">Пунктирная</option>
+                <option value="dashed">Штриховая</option>
+                <option value="double">Двойная</option>
+                <option value="groove">Желоб</option>
+                <option value="ridge">Выступ</option>
+                <option value="inset">Выпуклая</option>
+                <option value="outset">Вдавленная</option>
+            </select>
+                <div id="styleError"></div>
+            </td></tr>
+            <tr><td>Цвет</td><td><input type="color" id="color"
+            value="#cccccc"></td></tr>
+            <tr><td colspan="2"><input type="checkbox" id="rounded">
+            Скругленные углы</td></tr>
+            <tr><td>Радиус скругления</td>
+            <td><input type="text" id="radius" size="5" maxlength="5"
+            disabled></td></tr>
+            <tr><td colspan="2"><input type="submit"
+            value="Сгенерировать код"></td></tr>
+        </table>
+        </form>
+        <pre id="output"></pre>
+    </body>
+</html>
+<script type="text/javascript">
+    const form = document.forms[0];
+    const output = document.getElementById('output');
+    const width = document.getElementById('width');
+    const widthError = document.getElementById('widthError');
+    const style = document.getElementById('style');
+    const styleError = document.getElementById('styleError');
+
+    style.addEventListener('change', () => {
+        styleError.textContent = ('');
+        if (style.selectedIndex >= 3){
+            if (parseInt(width.value) < 5){
+                style.setCustomValidity('');
+                styleError.textContent = ('Для этого стиля рамки укажите толщину не менее 5');
+                //style.selectedIndex  = 0;
+            }
+        }
+    })
+
+   /* width.addEventListener('change', () => {
+        if (width.value)
+            if (width.value.endsWith('px'))
+                width.setCustomValidity('');
+            else
+                width.setCustomValidity('Укажите единицу измерения px (пикселы)');
+        if (width.checkValidity())
+            widthError.textContent = 'OK';
+        else
+            widthError.textContent = width.validationMessage;
+    })*/
+
+    form.elements[3].addEventListener('change', () => {
+        form.elements[4].disabled = !form.elements[3].checked;
+    })
+
+    form.addEventListener('submit', (evt) => {
+        if (style.selectedIndex >= 3){
+            styleError.textContent = ('');
+            if (parseInt(width.value) < 5){
+                style.setCustomValidity('');
+                styleError.textContent = ('Для этого стиля рамки укажите толщину не менее 5');
+                styleError.style = 'background-color: red';
+                evt.preventDefault();
+                evt.stopPropagation();
+
+            }
+        }
+
+    }, true)
+
+    form.addEventListener('submit', (evt) => {
+        let s = 'border: ' + form.elements[0].value + ' ' +
+            form.elements[1].options[form.elements[1].selectedIndex].value + ' ' +
+            form.elements[2].value + ';\n\r';
+            if (form.elements[3].checked) {
+                s += 'border-radius: ' + form.elements[4].value + ';';
+            }
+            output.textContent = s;
+            evt.preventDefault();
+    });
+
+    function checkValue() {
+        let messageError = 'Ошибка';
+        switch (this.id){
+            case 'width':
+                messageError = 'Задайте толщину линии';
+                break;
+            case 'radius':
+                messageError = 'Задайте радиус скругления';
+                break
+
+        }
+        if (this.value != ''){
+            if (this.value.endsWith('px'))
+                this.setCustomValidity('');
+            else
+                this.setCustomValidity('Укажите единицу измерения px (пикселы)');
+        }
+            else
+                this.setCustomValidity(messageError);
+    }
+    form.elements[0].addEventListener('change', checkValue);
+    form.elements[4].addEventListener('change', checkValue);
+</script>

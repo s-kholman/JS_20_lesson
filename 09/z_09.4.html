@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Экзаменатор</title>
+        <style type="text/css">
+            option, #output {
+                font-size: large;
+            }
+            .right {
+                color: green;
+            }
+            .wrong {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Экзаменатор</h1>
+        <p>Выберите в списке все интерпретируемые языки программирования.</p>
+        <select id="langs" size="8" multiple>
+            <option>PHP</option>
+            <option>Delphi</option>
+            <option>C++</option>
+            <option>Ruby</option>
+            <option>Rust</option>
+            <option>Python</option>
+            <option>JavaScript</option>
+            <option>Go</option>
+        </select>
+        <p><input type="button" id="done" value="Готово!"></p>
+        <p id="output"></p>
+    </body>
+</html>
+<script>
+    langs = document.getElementById('langs');
+    button = document.getElementById('done');
+    output = document.getElementById('output');
+    let arrCheck = [0, 3, 5, 6];
+    button.addEventListener('click', () => {
+        let arrTest = [];
+        for (let y = 0; y <= langs.length-1; ++y) {
+            if (langs[y].selected) arrTest.push(y)
+        }
+        if (arrTest.toString() == arrCheck.toString()){
+            output.className = 'right';
+            output.textContent = 'Правильно!';
+        } else {
+            output.className = 'wrong';
+            output.textContent = 'Не правильно!';
+        }
+    })
+</script>

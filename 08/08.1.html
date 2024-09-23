@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #player * {
+            box-sizing: border-box;
+        }
+        #player {
+            position: relative;
+            width: 320px;
+            height: 240px;
+        }
+        #player video {
+            width: 100%;
+            height: 100%;
+        }
+        #player .interface {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            background-color: rgba(255, 255, 255, 0.5);
+            display: none;
+        }
+        #player:hover .interface, #player.active .interface {
+            display: block;
+        }
+        #player .interface > div {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            border: 2px solid black;
+            background-color: white;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #player .interface .play {
+            left: calc((100% - 40px) / 2);
+            top: calc((100% - 40px) / 2);
+            width: 40px;
+            height: 40px;
+            background-image: url(images/play.png);
+        }
+        #player .interface .stop {
+            left: 10px;
+            bottom: 10px;
+            background-image: url(images/stop.png);
+        }
+        #player .interface .position {
+            left: 52px;
+            bottom: 10px;
+            width: calc(100% - 62px);
+        }
+        #player .interface .position > div {
+            width: 50%;
+            height: 100%;
+            background-color: blue;
+        }
+        #player .interface .mute {
+            right: 10px;
+            bottom: 72px;
+            background-image: url(images/unmute.png);
+        }
+        #player .interface .volume {
+            right: 10px;
+            bottom: 114px;
+            height: calc(100% - 124px);
+            transform: rotate(180deg);
+        }
+        #player .interface .volume > div {
+            width: 100%;
+            height: 50%;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<h1>Видео проигрыватель</h1>
+<div id="player">
+    <video src="media/video.mp4"></video>
+    <div class="interface">
+        <div class="play"></div>
+        <div class="stop"></div>
+        <div class="position"><div></div></div>
+        <div class="mute"></div>
+        <div class="volume"><div></div></div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    const player = document.getElementById('player');
+    const video = player.firstElementChild;
+    const play = player.querySelector('.play');
+    const stop = player.querySelector('.stop');
+    const position = player.querySelector('.position');
+    const mute = player.querySelector('.mute');
+    const volume = player.querySelector('.volume');
+    const posH = position.firstElementChild;
+    const volY = volume.firstElementChild;
+    video.volume = 0.5;
+
+    video.addEventListener('canplay', () => {
+        posH.style.width = '0%';
+        play.style.backgroundImage = 'url(images/play.png)';
+        player.classList.add('active')
+    })
+
+    video.addEventListener('playing', () => {
+        play.style.backgroundImage = 'url(images/pause.png)';
+        player.classList.remove('active');
+    })
+
+    video.addEventListener('pause', () => {
+        play.style.backgroundImage = 'url(images/play.png)';
+        player.classList.add('active');
+    })
+
+    video.addEventListener('timeupdate', () => {
+        posH.style.width = video.currentTime / video.duration * 100 + '%'
+    })
+
+    video.addEventListener('ended', () => {
+        video.load();
+    })
+
+    play.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    })
+
+    stop.addEventListener('click', () => {
+        video.load();
+    })
+
+    position.addEventListener('click', (evt) => {
+        video.currentTime = evt.offsetX / position.clientWidth * video.duration;
+    })
+
+    volume.addEventListener('click', (evt) => {
+        volY.style.height = evt.offsetY+'px';
+        video.volume = (evt.offsetY / (volume.clientHeight+1)).toFixed(2);
+    })
+
+    video.addEventListener('volumechange', () => {
+        if (video.muted) {
+            volY.style.height = '0px';
+        }
+    });
+
+    mute.addEventListener('click', () => {
+        if (video.muted){
+            mute.style.backgroundImage = 'url(images/unmute.png)';
+            volY.style.height = video.volume * 100 + '%';
+            video.muted = false;
+        } else {
+            video.muted = true
+            volY.style.height = '0px';
+            mute.style.backgroundImage = 'url(images/mute.png)';
+        }
+    })
+
+</script>

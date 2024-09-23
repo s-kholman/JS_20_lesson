@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS-код для создания рамки</title>
+        <style type="text/css">
+            td {
+                padding: 5px;
+            }
+            tr:last-child td {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>CSS-код для создания рамки</h1>
+        <table>
+            <tr><td>Толщина</td>
+            <td><input type="text" id="width" size="6" maxlength="6"
+            value="thin"></td></tr>
+            <tr><td>Стиль:</td>
+            <td><select id="style">
+                <option value="solid">Сплошная</option>
+                <option value="dotted">Пунктирная</option>
+                <option value="dashed">Штриховая</option>
+                <option value="double">Двойная</option>
+                <option value="groove">Желоб</option>
+                <option value="ridge">Выступ</option>
+                <option value="inset">Выпуклая</option>
+                <option value="outset">Вдавленная</option>
+            </select></td></tr>
+            <tr><td>Цвет</td><td><input type="color" id="color"
+            value="#cccccc"></td></tr>
+            <tr><td colspan="2"><input type="checkbox" id="rounded">
+            Скругленные углы</td></tr>
+            <tr><td>Радиус скругления</td>
+            <td><input type="text" id="radius" size="5" maxlength="5"
+            disabled></td></tr>
+            <tr><td colspan="2"><input type="button" id="generate"
+            value="Сгенерировать код"></td></tr>
+        </table>
+        <pre id="output"></pre>
+    </body>
+</html>
+<script type="text/javascript">
+    const width = document.getElementById('width');
+    const style = document.getElementById('style');
+    const color = document.getElementById('color');
+    const rounded = document.getElementById('rounded');
+    const radius = document.getElementById('radius');
+    const generate = document.getElementById('generate');
+    const output = document.getElementById('output');
+
+    rounded.addEventListener('change', () => {
+        radius.disabled = !rounded.checked;
+    })
+
+    generate.addEventListener('click', () => {
+        let s = 'border: ' + width.value + ' ' +
+            style.options[style.selectedIndex].value + ' ' + color.value +';\r\n';
+        if (rounded.checked)
+            s+= 'border-radius: ' + radius.value + ';';
+        output.textContent = s;
+    })
+</script>
