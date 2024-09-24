@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Программная навигация</title>
+        <style type="text/css">
+            nav {
+                position: fixed;
+                box-sizing: border-box;
+                left: 10px;
+                top: 70px;
+                width: 220px;
+                border: thin solid grey;
+            }
+            nav a {
+                display: block;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 18pt;
+                color: blue;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            section {
+                margin-left: 250px;
+            }
+            .active {
+                color: white;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Программная навигация</h1>
+        <nav>
+            <a href="#vsc" class="jslink active">Visual Studio Code</a>
+            <a href="#atom" class="jslink">Atom</a>
+            <a href="#notepadpp" class="jslink">Notepad++</a>
+        </nav>
+        <section>
+            <h2 id="vsc">Visual Studio Code</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>развитые инструменты для написания программного кода;</li>
+                <li>&laquo;умная&raquo; подстановка языковых конструкций;</li>
+                <li>интеграция с исполняющими средами (Google Chrome, PHP,
+                    Node.js и др.);</li>
+                <li>встроенный полнофункциональный отладчик;</li>
+                <li>большое количество расширений;</li>
+                <li>удобные средства для установки расширений и управления
+                    ими;</li>
+                <li>широкие возможности настройки (включая темы оформления).</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>не очень удобные клавиатурные комбинации;</li>
+                <li>довольно большой объем;</li>
+                <li>не очень высокое быстродействие на больших файлах.</li>
+            </ul>
+            <p><a href="https://code.visualstudio.com/">Официальный сайт</a></p>
+            <h2 id="atom">Atom</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>поддержка практически всех языков, используемых в промышленном
+                    программировании;</li>
+                <li>удобные клавиатурные комбинации;</li>
+                <li>огромное количество расширений;</li>
+                <li>удобные средства для установки расширений и управления
+                    ими;</li>
+                <li>широкие возможности настройки (включая темы оформления).</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>некоторые полезные инструменты изначально отсутствуют
+                    (исправляется расширениями);</li>
+                <li>очень большой объем;</li>
+                <li>низкое быстродействие на больших файлах.</li>
+            </ul>
+            <p><a href="https://atom.io/">Официальный сайт</a></p>
+            <h2 id="notepadpp">Notepad++</h2>
+            <p>Текстовый редактор для программистов.</p>
+            <p>Достоинства:</p>
+            <ul>
+                <li>поддержка многих языков, используемых в промышленном
+                    программировании;</li>
+                <li>удобные клавиатурные комбинации;</li>
+                <li>компактность;</li>
+                <li>исключительное быстродействие.</li>
+            </ul>
+            <p>Недостатки:</p>
+            <ul>
+                <li>крайне бедный набор инструментов;</li>
+                <li>небольшое количество расширений.</li>
+            </ul>
+            <p><a href="https://notepad-plus-plus.org/">Официальный сайт</a></p>
+        </section>
+    </body>
+</html>
+<script>
+    function highlightActiveLink(hash) {
+        active = document.querySelector('nav .active');
+        if (active)
+            active.classList.remove('active')
+        active = document.querySelector('nav a[href$='+hash+']');
+        active.classList.add('active');
+    }
+
+    window.addEventListener('hashchange', (evt) => {
+        const hashIndex = evt.newURL.indexOf('#');
+        let hash;
+        if (hashIndex >= -1)
+            hash = evt.newURL.substr(hashIndex + 1);
+        else
+            hash='vsc';
+        highlightActiveLink(hash);
+    })
+</script>
