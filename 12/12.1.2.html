@@ -16,15 +16,25 @@
         <h1>Вычисление простых чисел</h1>
         <form>
             <p>От: <input type="number" min="0" value="1">
-            до: <input type="number" min="0" value="100"></p>
+            до: <input type="number" min="0" value="500000"></p>
             <p><input type="submit" value="Вычислить"></p>
             <p><select size="10"></select></p>
         </form>
+        <p><input id="stopBtn" type="submit" value="Стоп"></p>
     </body>
 </html>
 <script>
     const form = document.forms[0];
     let min, max, i, int;
+    const stopBtn = document.getElementById('stopBtn');
+    stopBtn.disabled = true
+
+    stopBtn.addEventListener('click', (evt) => {
+        window.clearInterval(int);
+        stopBtn.disabled = true
+        form.elements[2].disabled = false
+        evt.preventDefault()
+    })
 
     function computeSimpleValues() {
         let flsg, sqr, el;
@@ -32,8 +42,34 @@
             if (i % 2 != 0) {
                 flsg = true;
                 sqr = Math.floor(Math.sqrt(i));
-                for (let j = 3; j <= sqr)
+                for (let j = 3; j <= sqr; j += 2)
+                    if (i % j === 0) {
+                        flag = false;
+                        break
+                    }
+                if (flsg) {
+                    el = document.createElement('option');
+                    el.textContent = i;
+                    form.elements[3].add(el);
+                }
             }
         }
+        if (i >= max) {
+            window.clearInterval(int);
+            stopBtn.disabled = true
+            form.elements[2].disabled = false
+
+        }
     }
+
+    form.addEventListener('submit', (evt) => {
+        min = parseInt(form.elements[0].value)
+        max = parseInt(form.elements[1].value)
+        i = min
+        form.elements[3].innerHTML = '';
+        form.elements[2].disabled = true
+        stopBtn.disabled = false
+        int = window.setInterval(computeSimpleValues, 100);
+        evt.preventDefault()
+    })
 </script>
