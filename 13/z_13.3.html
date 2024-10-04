@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Экзаменатор</title>
+        <style type="text/css">
+            #all, #selected {
+                width: 200px;
+                height: calc(20pt * 9);
+                border: 1px solid lightgrey;
+            }
+            #all div, #selected div {
+                font-size: 14pt;
+                line-height: 14pt;
+                height: 14pt;
+                padding: calc(3pt - 1px) 4pt;
+                border: 1px solid grey;
+            }
+            #output {
+                font-size: large;
+            }
+            .right {
+                color: green;
+            }
+            .wrong {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Экзаменатор</h1>
+        <p>Перенесите из левого списка в правый все языки,
+        применяемые для разработки веб-страниц.</p>
+        <table>
+            <tr>
+                <td>
+                    <div id="all">
+                        <div>Python</div>
+                        <div>Assembler</div>
+                        <div>HTML</div>
+                        <div>XAML</div>
+                        <div>TypeScript</div>
+                        <div>CSS</div>
+                        <div>Java</div>
+                        <div>C++</div>
+                        <div>JavaScript</div>
+                    </div>
+                </td>
+                <td><div id="selected"></div></td>
+            </tr>
+        </table>
+        <p><input type="button" id="done" value="Готово!"></p>
+        <p id="output"></p>
+    </body>
+</html>
+<script>
+    const all = document.getElementById('all')
+    const selected = document.getElementById('selected')
+    const btnCheck = document.getElementById('done')
+    const output = document.getElementById('output')
+    let fail = false;
+
+    btnCheck.addEventListener('click', () => {
+        console.log(selected.children.length)
+        if (selected.children.length === 8){
+            for (let i = 0; i < selected.children.length; ++i){
+                if (selected.children[i].textContent === 'Assembler'){
+                    fail = true;
+                    break;
+                } else {
+                    fail = false
+                }
+
+            }
+
+
+        }else {
+            fail = true;
+        }
+        if (fail){
+            output.textContent = 'Неправильно'
+            output.className = 'wrong'
+        } else {
+            output.textContent = 'Правильно!'
+            output.className = 'right'
+        }
+    })
+
+
+    function dragStart(event) {
+        event.dataTransfer.setData('text/id', this.id)
+        event.dataTransfer.effectAllowed = 'move'
+    }
+
+    for (let i = 0; i < all.children.length; ++i){
+        all.children[i].addEventListener('dragstart', dragStart);
+        all.children[i].draggable = true
+        all.children[i].id = 'all' +i
+    }
+
+    function dragOver(event) {
+        event.dataTransfer.dropEffect = 'move'
+        event.preventDefault()
+    }
+    all.addEventListener('dragover', dragOver)
+    all.addEventListener('drop', dropToAll)
+    selected.addEventListener('dragover', dragOver)
+
+    function dropToAll(event) {
+        console.log('ddd')
+        const s = event.dataTransfer.getData('text/id')
+        if (s){
+            const el = selected.querySelector('#'+s)
+            all.appendChild(el)
+            event.preventDefault()
+        }
+    }
+
+
+    function drop(event) {
+        const s = event.dataTransfer.getData('text/id')
+        if (s){
+            const el = all.querySelector('#'+s)
+            selected.appendChild(el)
+            event.preventDefault()
+        }
+    }
+
+    selected.addEventListener('drop', drop)
+</script>

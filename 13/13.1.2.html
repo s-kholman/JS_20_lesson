@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Считывание файла JS</title>
+</head>
+<body>
+<p><input type="file" id="file" accept=".txt"></p>
+<div id="output"></div>
+</body>
+</html>
+<script>
+    const file = document.getElementById('file')
+    const output = document.getElementById('output')
+    const fr = new FileReader()
+
+    fr.addEventListener('load', (evt) => {
+      output.textContent = evt.target.result
+    })
+
+    file.addEventListener('change', () => {
+        //fr.readAsText(file.files[0])
+        fr.readAsText(file.files[0], 'windows-1251')
+
+    })
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>draggable</title>
+</head>
+<body>
+<p draggable="true" id="dragsource">Перетаскивание</p>
+<div id="dragdest">Вали все сюда</div>
+</body>
+</html>
+<script>
+    const dragsource = document.getElementById('dragsource')
+    const dragdest = document.getElementById('dragdest')
+
+    dragdest.addEventListener('dragover', (evt) => {
+        evt.dataTransfer.dropEffect = 'move'
+        evt.preventDefault()
+    })
+
+    dragsource.addEventListener('dragstart', (event) => {
+        event.dataTransfer.setData('text/plain', 'Важные данные. Тащите аккуратнее')
+        event.dataTransfer.setData('text/html', 'Важные данные. <em>Тащите аккуратнее</em>')
+    })
+</script>

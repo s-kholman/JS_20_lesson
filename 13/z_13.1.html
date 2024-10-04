@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Предварительный просмотр</title>
+    <style type="text/css">
+        #preview {
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid lightgrey;
+        }
+        #preview > div {
+            width: 200px;
+            height: 150px;
+            margin: 10px;
+            background-color: lightgrey;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+<h1>Предварительный просмотр</h1>
+<div>Выберите файлы<br>
+    <input type="file" id="file" accept="image/*" multiple></div>
+<div id="preview"></div>
+</body>
+</html>
+<script type="text/javascript">
+    const file = document.getElementById('file');
+    const preview = document.getElementById('preview');
+    const frs = [];
+    function showImage(evt) {
+        let div = document.createElement('div');
+        div.style.backgroundImage = 'url(' + evt.target.result + ')';
+        preview.appendChild(div);
+    }
+    function loadFiles(files) {
+        let fr;
+        preview.innerHTML = '';
+        frs.splice(0, frs.length);
+        for (let i = 0; i < files.length; ++i) {
+            fr = new FileReader();
+            fr.addEventListener('load', showImage);
+            fr.readAsDataURL(files[i]);
+            frs.push(fr);
+        }
+    }
+    file.addEventListener('change', () => {
+        loadFiles(file.files);
+    });
+    file.addEventListener('dragover', (evt) => {
+        evt.preventDefault();
+    });
+    file.addEventListener('drop', (evt) => {
+        loadFiles(evt.dataTransfer.files);
+        evt.preventDefault();
+    });
+</script>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Предварительный просмотр</title>
+        <style type="text/css">
+            #preview {
+                width: 400px;
+                height: 300px;
+                background-color: lightgrey;
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Предварительный просмотр</h1>
+        <div>Выберите файл<br>
+        <input type="file" id="file" accept="image/*"></div>
+        <div id="preview"></div>
+    </body>
+</html>
+<script>
+    const file = document.getElementById('file')
+    const preview = document.getElementById('preview')
+    const fr = new FileReader()
+
+    fr.addEventListener('load', (event) => {
+        preview.style.backgroundImage = 'url(' +event.target.result +')'
+    })
+
+    file.addEventListener('change', () => {
+        fr.readAsDataURL(file.files[0])
+    })
+
+</script>

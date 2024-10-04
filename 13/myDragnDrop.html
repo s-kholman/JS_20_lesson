@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .priem{
+            width: 150px;
+            height: 150px;
+            background-color: #a1a1a1;
+        }
+    </style>
+</head>
+<body>
+<!--создали перетаскиваемый объект. Добавив атрибут draggable="true"-->
+<p draggable="true" id="drag">Перетаскиваемый объект</p>
+<div class="priem" id="dragdest"></div>
+</body>
+</html>
+<script>
+    const dragSource = document.getElementById('drag')
+    const dragdest = document.getElementById('dragdest')
+
+    dragdest.addEventListener('dragover', (evt) => {
+        evt.dataTransfer.dropEffect = 'move'
+        evt.preventDefault();
+    })
+
+    dragSource.addEventListener('dragstart', (evt) => {
+        evt.dataTransfer.setData('text/id', dragSource.id)
+        evt.dataTransfer.effectAllowed = 'move';
+    })
+
+    dragdest.addEventListener('drop', (evt) => {
+        const el = document.getElementById(evt.dataTransfer.getData('text/id'))
+
+        dragdest.appendChild(el)
+
+        evt.preventDefault()
+    })
+
+</script>

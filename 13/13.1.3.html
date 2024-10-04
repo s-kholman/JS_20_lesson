@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Считывание файла JS</title>
+</head>
+<body>
+<p><input type="file" id="file" ></p>
+<p>Загружено <span id="prg"></span> </p>
+</body>
+</html>
+<script>
+    const prg = document.getElementById('prg') //Получаем объект из DOM
+    const fr = new FileReader() // Создаем копию класс FileReader
+
+    file.addEventListener('change', () => { //Обработчик события выбора файла
+        //fr.readAsText(file.files[0])
+        fr.readAsText(file.files[0], 'windows-1251') //Запускаем чтение выбранного файла
+
+    })
+    fr.addEventListener('progress', (evt) => { //Событие наступает периодически при считывании файла
+      if (evt.lengthComputable){ //если смогли вычислить размер файло то ...
+          prg.textContent = (evt.loaded / evt.total * 100).toFixed() + '%'
+          /*
+           * loaded - размер загруженной части
+           * total - общий размер файла
+           * */
+      }
+    })
+
+
+</script>

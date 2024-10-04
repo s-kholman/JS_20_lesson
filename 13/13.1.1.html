@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Считывание файла JS</title>
+</head>
+<body>
+<p><input type="file" id="file" multiple></p>
+<div id="output"></div>
+</body>
+</html>
+<script>
+    const file = document.getElementById('file')
+    const output = document.getElementById('output')
+
+    file.addEventListener('change', () => {
+        let s = '', f
+        for (let i = 0; i < file.files.length; ++i) {
+            f = file.files[i]
+            s +=
+                `
+                    <h2>${f.name}</h2>
+                    <p>Размер: ${f.size} байтов</p>
+                    <p>Тип: ${f.type}</p>
+                    <p>Последнее изменение: ${f.lastModifiedDate.toLocaleString()}</p>
+                `
+        }
+        output.innerHTML = s;
+
+    })
+</script>
