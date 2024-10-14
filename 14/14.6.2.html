@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<html>
+<body>
+<div>
+<canvas height="200" width="300" id="canvas" style="border: solid"></canvas>
+<canvas height="200" width="150" id="canvas2" style="border: solid"></canvas>
+<canvas height="200" width="100" id="canvas3" style="border: solid"></canvas>
+<canvas height="200" width="300" id="canvas4" style="border: solid"></canvas>
+</div>
+<div>
+    <canvas height="200" width="300" id="canvas5" style="border: solid"></canvas>
+</div>
+</body>
+</html>
+<script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d');
+    const canvas2 = document.getElementById('canvas2')
+    const ctx2 = canvas2.getContext('2d');
+
+    const canvas3 = document.getElementById('canvas3')
+    const ctx3 = canvas3.getContext('2d');
+
+    const canvas4 = document.getElementById('canvas4')
+    const ctx4 = canvas4.getContext('2d');
+
+    const canvas5 = document.getElementById('canvas5')
+    const ctx5 = canvas5.getContext('2d');
+
+    ctx.beginPath()
+    ctx.strokeStyle = 'blue'
+    ctx.moveTo(60,0)
+    ctx.lineTo(30,60)
+    ctx.lineTo(90,60)
+    ctx.lineTo(60,0)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.fillStyle = 'blue'
+    ctx.moveTo(200,0)
+    ctx.lineTo(150,100)
+    ctx.lineTo(250,100)
+    //ctx.lineTo(200,0) //Закрываем контур по координатам
+    //ctx.closePath() //закрываем контур от текущего места положения к начальным координатам
+    ctx.fill() //при рисовании методом fill контур будет закрыт автоматически
+
+    ctx2.beginPath()
+    ctx2.moveTo(0,50)
+    ctx2.lineTo(80, 50)
+    ctx2.strokeRect(0, 35, 110, 30)
+    ctx2.lineWidth = 30
+    ctx2.lineCap = 'round'
+    ctx2.stroke()
+
+    ctx3.beginPath()
+    ctx3.setLineDash([6,3])
+    ctx3.moveTo(0,50)
+    ctx3.lineTo(300, 50)
+    ctx3.stroke()
+
+    ctx3.beginPath()
+    ctx3.setLineDash([10,15])
+    ctx3.moveTo(0,20)
+    ctx3.lineTo(300, 20)
+    ctx3.stroke()
+
+    ctx4.beginPath()
+    ctx4.arc(50, 50, 45, 0, Math.PI / 2)
+    ctx4.stroke()
+
+    ctx4.beginPath()
+    ctx4.arc(150, 50, 45, 0, Math.PI / 2, true)
+    ctx4.stroke()
+
+    ctx4.beginPath()
+    ctx4.arc(250, 50, 45, 0, Math.PI * 2, true)
+    ctx4.stroke()
+
+
+    ctx5.beginPath()
+    ctx5.moveTo(5, 95)
+    ctx5.lineTo(5, 90)
+    ctx5.arcTo(5, 5, 50, 5, 45)
+    ctx5.arcTo(95, 5, 95, 50, 45)
+    ctx5.lineTo(95, 95)
+    ctx5.stroke()
+</script>

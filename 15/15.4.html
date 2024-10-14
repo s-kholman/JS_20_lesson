@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Слайдер</title>
+        <style type="text/css">
+            section, nav {
+                display: flex;
+                justify-content: center;
+            }
+            section {
+                height: 300px;
+            }
+            section img {
+                display: block;
+                height: 300px;
+            }
+            nav {
+                width: 50%;
+                margin: 30px auto auto;
+            }
+            nav a {
+                width: 20pt;
+                height: 20pt;
+                font-size: 20pt;
+                line-height: 20pt;
+                text-align: center;
+                margin: auto 10px;
+                border: thin solid grey;
+                color: black;
+                background-color: white;
+                cursor: pointer;
+                display: block;
+                text-decoration: none;
+            }
+            nav a.active {
+                color: white;
+                background-color: black;
+                cursor: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <img src="images/1.jpg">
+        </section>
+        <nav id="slider1">
+            <a href="images/1.jpg" class="active">1</a>
+            <a href="images/2.jpg">2</a>
+            <a href="images/3.jpg">3</a>
+        </nav>
+    <p><input type="button" id="previous" value="Назад">
+    <input type="button" id="next" value="Вперед"></p>
+    </body>
+</html>
+<script type="text/javascript">
+    const previous = document.getElementById('previous')
+    const next = document.getElementById('next')
+    const slider1 = new Slider2('slider1')
+
+    HTMLCollection.prototype.forEach = function (func, ths) {
+        for (let i = 0; i < this.length; ++i){
+            if (ths)
+                func.call(ths, this[i], i, this)
+            else
+                func(this[i], i, this)
+        }
+    }
+
+    function Slider__showImage(evt) {
+        if (evt.target != this) {
+            this.previousElementSibling.firstElementChild.src = evt.target.href;
+            /*let el;
+            for (let i = 0; i < this.childElementCount; ++i) {
+                el = this.children[i];
+                el.className = (el == evt.target) ? 'active' : '';
+            }*/
+            this.children.forEach((el) => {
+                el.className = (el == evt.target) ? 'active' : ''
+            })
+            evt.preventDefault();
+        }
+    }
+
+    function Slider(buttonset) {
+        this.buttonset = buttonset;
+        console.log('Slider', buttonset)
+        this.buttonset.addEventListener('click', Slider__showImage);
+    }
+
+    function Slider__getCurrentIndex() {
+        for (let i = 0; i < this.buttonset.childElementCount; ++i) {
+            if (this.buttonset.children[i].classList.contains('active'))
+                return i;
+        }
+    }
+
+    function Slider__setCurrentIndex(ind) {
+        if (ind < 0)
+            ind = 0;
+        if (ind > this.buttonset.childElementCount - 1)
+            ind = this.buttonset.childElementCount - 1;
+        this.buttonset.previousElementSibling.firstElementChild.src = this.buttonset.children[ind].href;
+        for (let i = 0; i < this.buttonset.childElementCount; ++i)
+            this.buttonset.children[i].className = (i == ind) ? 'active' : '';
+    }
+
+    Object.defineProperty(Slider2.prototype, 'currentIndex', {
+        get: Slider__getCurrentIndex,
+        set: Slider__setCurrentIndex
+    });
+
+    function Slider2(buttonset) {
+        if (typeof buttonset == 'string') {
+            buttonset = document.getElementById(buttonset)
+        }
+        Slider.apply(this, arguments)
+    }
+
+    Slider2.prototype.goNext = function () {
+        this.currentIndex = this.currentIndex + 1;
+    }
+
+    Slider2.prototype.goPrevious = function () {
+        this.currentIndex = this.currentIndex - 1;
+    }
+
+    Slider2.prototype = Object.create(Slider.prototype)
+    Slider2.prototype.constructor = Slider2
+
+    previous.addEventListener('click', () => {
+        slider1.goPrevious()
+    })
+
+    next.addEventListener('click', () => {
+        slider1.goNext()
+    })
+</script>

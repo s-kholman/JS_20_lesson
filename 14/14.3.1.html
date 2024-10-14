@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas height="500" width="500" id="canvas"></canvas>
+</body>
+</html>
+<script>
+    const canvas = document.getElementById('canvas')
+    ctx = canvas.getContext('2d');
+
+    ctx.strokeRect(10,20,30,100) //создали прямоугольник
+
+    //Задаем параметры тени и создаем прямоугольник с этими параметрами
+    ctx.shadowColor = 'black' //Цвет тени
+    ctx.shadowBlur = 5 //Величина размытия
+    ctx.strokeRect(65, 20,30, 100)
+    //Задаем смещение тени и рисуем прямоугольник со всеми параметрами
+    ctx.shadowOffsetX = 15
+    ctx.shadowOffsetY = -10
+    ctx.strokeRect(120,20,30,100)
+</script>

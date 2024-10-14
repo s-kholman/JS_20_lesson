@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas height="500" width="700" id="canvas" style="border: solid"></canvas>
+</body>
+</html>
+<script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = '40px sans-serif'
+    ctx.strokeText('Пишем текст на canvas', 20, 50)
+    ctx.fillText('Текст заливка без контура', 20, 100)
+    ctx.textAlign = 'center'
+    ctx.fillText('Текст align', canvas.width / 2, 150)
+    ctx.textAlign = 'left'
+    ctx.fillText('Текст center', 20, 200)
+
+    ctx.textAlign = 'right'
+    ctx.fillText('Текст right', canvas.width, 250)
+
+    ctx.textBaseline = 'alphabetic'
+    ctx.fillText('Текст alphabetic', 350, 250)
+    ctx.textBaseline = 'top'
+    ctx.fillText('Текст top', 250, 250)
+</script>

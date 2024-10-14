@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<html>
+<body>
+<canvas height="100" width="100" id="canvas" style="border: solid"></canvas>
+<canvas height="200" width="200" id="canvas2" style="border: solid"></canvas>
+<canvas height="100" width="100" id="canvas3" style="border: solid"></canvas>
+<canvas height="100" width="100" id="canvas4" style="border: solid"></canvas>
+<canvas height="100" width="100" id="canvas5" style="border: solid"></canvas>
+<canvas height="100" width="100" id="canvas6" style="border: solid"></canvas>
+</body>
+</html>
+<script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d');
+
+    const canvas2 = document.getElementById('canvas2')
+    const ctx2 = canvas2.getContext('2d');
+
+    const canvas3 = document.getElementById('canvas3')
+    const ctx3 = canvas3.getContext('2d');
+
+    const canvas4 = document.getElementById('canvas4')
+    const ctx4 = canvas4.getContext('2d');
+
+    const canvas5 = document.getElementById('canvas5')
+    const ctx5 = canvas5.getContext('2d');
+
+    const canvas6 = document.getElementById('canvas6')
+    const ctx6 = canvas6.getContext('2d');
+
+    const grd1 = ctx.createLinearGradient(0,0,100,0)
+    grd1.addColorStop(0, 'white')
+    grd1.addColorStop(0.5, 'black')
+    grd1.addColorStop(1, 'lightgrey')
+    ctx.beginPath()
+    ctx.rect(0,0,100,100)
+    ctx.fillStyle = grd1
+    ctx.fill()
+
+    const grd2 = ctx2.createLinearGradient(0,100,0,0)
+    grd2.addColorStop(0, 'white')
+    // grd2.addColorStop(0.5, 'black')
+    grd2.addColorStop(1, 'black')
+    ctx2.beginPath()
+    ctx2.rect(0,0,100,100)
+    ctx2.fillStyle = grd2
+    ctx2.fill()
+
+    const grd3 = ctx3.createLinearGradient(0,0,100,100)
+    grd3.addColorStop(0, 'white')
+    grd3.addColorStop(0.5, 'black')
+    grd3.addColorStop(1, 'lightgrey')
+    ctx3.beginPath()
+    ctx3.rect(0,0,100,100)
+    ctx3.fillStyle = grd3
+    ctx3.fill()
+
+    const grd4 = ctx4.createLinearGradient(0,0,100,0)
+    grd4.addColorStop(0, 'white')
+    grd4.addColorStop(0.5, 'black')
+    grd4.addColorStop(1, 'lightgrey')
+    ctx4.beginPath()
+    ctx4.rect(0,0,30,100)
+    ctx4.rect(33,0,30,100)
+    ctx4.rect(67,0,30,100)
+    ctx4.fillStyle = grd4
+    ctx4.fill()
+
+    const grd5 = ctx5.createRadialGradient(50,50,10,50,50,50)
+    grd5.addColorStop(0, 'white')
+    grd5.addColorStop(0.5, 'black')
+    grd5.addColorStop(1, 'lightgrey')
+    ctx5.beginPath()
+    ctx5.rect(0,0,100,100)
+    ctx5.fillStyle = grd5
+    ctx5.fill()
+
+    const grd6 = ctx6.createRadialGradient(0,0,20,0,0,200)
+    grd6.addColorStop(0, 'white')
+    grd6.addColorStop(0.5, 'black')
+    grd6.addColorStop(1, 'lightgrey')
+    ctx6.beginPath()
+    ctx6.rect(0,0,100,100)
+    ctx6.fillStyle = grd6
+    ctx6.fill()
+
+</script>

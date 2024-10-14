@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Слайдер</title>
+        <style type="text/css">
+            section, nav {
+                display: flex;
+                justify-content: center;
+            }
+            section {
+                height: 300px;
+            }
+            section img {
+                display: block;
+                height: 300px;
+            }
+            nav {
+                width: 50%;
+                margin: 30px auto auto;
+            }
+            nav a {
+                width: 20pt;
+                height: 20pt;
+                font-size: 20pt;
+                line-height: 20pt;
+                text-align: center;
+                margin: auto 10px;
+                border: thin solid grey;
+                color: black;
+                background-color: white;
+                cursor: pointer;
+                display: block;
+                text-decoration: none;
+            }
+            nav a.active {
+                color: white;
+                background-color: black;
+                cursor: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <img src="images/1.jpg">
+        </section>
+        <nav id="buttonset">
+            <a href="images/1.jpg" class="active">1</a>
+            <a href="images/2.jpg">2</a>
+            <a href="images/3.jpg">3</a>
+        </nav>
+    <p></p>
+        <section>
+            <img src="images/7.jpg">
+        </section>
+        <nav id="slider2">
+            <a href="images/4.jpg" class="active">1</a>
+            <a href="images/5.jpg">2</a>
+            <a href="images/6.jpg">3</a>
+            <a href="images/7.jpg">4</a>
+        </nav>
+    </body>
+</html>
+<script>
+    function Slider(buttonset) {
+        this.buttonset = buttonset
+        this.buttonset.addEventListener('click', Slider__showImage)
+    }
+
+    function Slider__showImage(evt) {
+        if (evt.target != this){
+            this.previousElementSibling.firstElementChild.src = evt.target.href
+            for (let i = 0; i < this.childElementCount; ++i) {
+                this.children[i].className = (this.children[i] == evt.target) ? 'active' : ''
+            }
+            evt.preventDefault()
+        }
+
+    }
+
+    Slider.prototype.getCurrentIndex = function () {
+        for (let i =0; i < this.buttonset.childElementCount; ++i) {
+            if (this.buttonset.children[i].classList.contains('active')){
+                return i
+            }
+        }
+    }
+
+    Slider.prototype.setCurrentIndex = function (ind) {
+        if (ind < 0)
+            ind = 0
+        if (ind > this.buttonset.childElementCount - 1)
+            ind = this.buttonset.childElementCount - 1
+        this.buttonset.previousElementSibling.firstElementChild.src = this.buttonset.children[ind].href
+        for (let i = 0; i < this.buttonset.childElementCount; ++i) {
+            this.buttonset.children[i].className = (i == ind) ? 'active' : '';
+        }
+    }
+
+    //Slider(document.getElementById('buttonset'))
+
+    const slider1 = new Slider(document.getElementById('buttonset'))
+    slider1.setCurrentIndex(1)
+
+    const slider2 = new Slider(document.getElementById('slider2'))
+    slider2.setCurrentIndex(3)
+
+    console.log(slider1.getCurrentIndex())
+</script>

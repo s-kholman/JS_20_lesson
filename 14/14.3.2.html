@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas height="500" width="500" id="canvas"></canvas>
+</body>
+</html>
+<script>
+    const canvas = document.getElementById('canvas')
+    ctx = canvas.getContext('2d');
+    ctx.strokeRect(10,5,300,300)
+    ctx.fillRect(40,10,100,170)
+    ctx.fillRect(170,180,100,100)
+    ctx.clearRect(10,130,290,100)
+
+    ctx.fillRect(320, 10, 170, 120)
+    ctx.strokeStyle = '#ffffff'
+    ctx.strokeRect(330, 20, 150, 100)
+    ctx.strokeRect(350, 40, 110, 60)
+    ctx.fillStyle = 'lightgrey'
+    ctx.fillRect(370,60, 70, 20)
+</script>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Фотогалерея с лайтбоксом</title>
+    <style type="text/css">
+        nav.photogallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        nav.photogallery a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 160px;
+            height: 120px;
+            margin: 5px;
+            background-color: #eeeeee;
+        }
+        nav.photogallery a img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #lightbox {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        #lightbox img {
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        #lightbox.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<h1>Фотогалерея с лайтбоксом</h1>
+<nav class="photogallery" id="pg1">
+    <a href="images/1.jpg"><img src="images/1.jpg"></a>
+    <a href="images/2.jpg"><img src="images/2.jpg"></a>
+    <a href="images/3.jpg"><img src="images/3.jpg"></a>
+    <a href="images/4.jpg"><img src="images/4.jpg"></a>
+    <a href="images/5.jpg"><img src="images/5.jpg"></a>
+    <a href="images/6.jpg"><img src="images/6.jpg"></a>
+    <a href="images/7.jpg"><img src="images/7.jpg"></a>
+</nav>
+<div id="lightbox"><img src=""></div>
+</body>
+</html>
+<script type="text/javascript">
+    function PhotoGallery__showLB(evt) {
+        PhotoGallery.lb.firstElementChild.src = this.href;
+        PhotoGallery.lb.classList.add('show');
+        evt.preventDefault();
+    }
+    function PhotoGallery(thumbnails) {
+        if (typeof thumbnails == 'string')
+            thumbnails = document.getElementById(thumbnails);
+        for (let i = 0; i < thumbnails.childElementCount; ++i)
+            thumbnails.children[i].addEventListener('click', PhotoGallery__showLB);
+    }
+    Object.defineProperty(PhotoGallery.prototype, 'lightboxOpened', {
+        get: function () {
+            return PhotoGallery.lb.classList.contains('show');
+        }
+    });
+    PhotoGallery.lb = document.getElementById('lightbox');
+    PhotoGallery.lb.addEventListener('click', () => {
+        PhotoGallery.lb.classList.remove('show');
+    });
+    window.addEventListener('keydown', (evt) => {
+        if (evt.which == 27)
+            PhotoGallery.lb.classList.remove('show');
+    });
+    const pg1 = new PhotoGallery('pg1');
+</script>

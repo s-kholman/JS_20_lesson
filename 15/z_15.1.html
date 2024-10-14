@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Слайдер</title>
+        <style type="text/css">
+            section, nav {
+                display: flex;
+                justify-content: center;
+            }
+            section {
+                height: 300px;
+            }
+            section img {
+                display: block;
+                height: 300px;
+            }
+            nav {
+                width: 50%;
+                margin: 30px auto auto;
+            }
+            nav a {
+                width: 20pt;
+                height: 20pt;
+                font-size: 20pt;
+                line-height: 20pt;
+                text-align: center;
+                margin: auto 10px;
+                border: thin solid grey;
+                color: black;
+                background-color: white;
+                cursor: pointer;
+                display: block;
+                text-decoration: none;
+            }
+            nav a.active {
+                color: white;
+                background-color: black;
+                cursor: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <img src="images/1.jpg">
+        </section>
+        <nav id="slider1" class="slider">
+            <a href="images/1.jpg" class="active">1</a>
+            <a href="images/2.jpg">2</a>
+            <a href="images/3.jpg">3</a>
+        </nav>
+
+        <section>
+            <img src="images/4.jpg">
+        </section>
+        <nav id="slider2" class="slider">
+            <a href="images/4.jpg" class="active">1</a>
+            <a href="images/5.jpg">2</a>
+            <a href="images/6.jpg">3</a>
+        </nav>
+    <p><input type="button" id="previous" value="Назад">
+    <input type="button" id="next" value="Вперед"></p>
+    </body>
+</html>
+<script type="text/javascript">
+
+
+    HTMLCollection.prototype.forEach = function (func, ths) {
+        for (let i = 0; i < this.length; ++i){
+            if (ths)
+                func.call(ths, this[i], i, this)
+            else
+                func(this[i], i, this)
+        }
+    }
+
+    function Slider__showImage(evt) {
+        if (evt.target != this) {
+            this.previousElementSibling.firstElementChild.src = evt.target.href;
+            this.children.forEach((el) => {
+                el.className = (el == evt.target) ? 'active' : '';
+            });
+            evt.preventDefault();
+        }
+    }
+
+    function Slider(buttonset) {
+        this.buttonset = buttonset;
+        this.buttonset.addEventListener('click', Slider__showImage);
+    }
+
+    function Slider__getCurrentIndex() {
+        for (let i = 0; i < this.buttonset.childElementCount; ++i) {
+            if (this.buttonset.children[i].classList.contains('active'))
+                return i;
+        }
+    }
+
+    function Slider__setCurrentIndex(ind) {
+        if (ind < 0)
+            ind = 0;
+        if (ind > this.buttonset.childElementCount - 1)
+            ind = this.buttonset.childElementCount - 1;
+        this.buttonset.previousElementSibling.firstElementChild.src = this.buttonset.children[ind].href;
+        for (let i = 0; i < this.buttonset.childElementCount; ++i)
+            this.buttonset.children[i].className = (i == ind) ? 'active' : '';
+    }
+
+    Object.defineProperty(Slider.prototype, 'currentIndex', {
+        get: Slider__getCurrentIndex,
+        set: Slider__setCurrentIndex
+    });
+
+    function Slider2(buttonset) {
+        if (typeof buttonset == 'string')
+            buttonset = document.getElementById(buttonset)
+        Slider.apply(this, arguments)
+    }
+
+    Slider2.prototype = Object.create(Slider.prototype)
+    Slider2.prototype.constructor = Slider2
+
+    Slider2.prototype.goNext = function () {
+        this.currentIndex = this.currentIndex + 1;
+    }
+
+    Slider2.prototype.goPrevious = function () {
+        this.currentIndex = this.currentIndex - 1;
+    }
+
+    function Slider3(){
+        Slider2.apply(this, arguments)
+    }
+
+    Slider3.prototype = Object.create(Slider2.prototype)
+    Slider3.prototype.constructor = Slider3
+
+    Slider3.prototype.goNext = function () {
+        if (this.currentIndex + 1 === this.buttonset.childElementCount) {
+            this.currentIndex = 0
+        } else {
+            Slider2.prototype.goNext.apply(this)
+        }
+    }
+
+    Slider3.prototype.goPrevious = function () {
+        if (this.currentIndex === 0){
+            this.currentIndex = this.buttonset.childElementCount - 1
+        } else
+        Slider2.prototype.goPrevious.apply(this)
+    }
+
+    Slider3.selector = 'slider'
+
+    Slider3.createSliders = function () {
+        let selectors =  document.getElementsByClassName(this.selector)
+        let responce = [];
+        for (let i = 0; i < selectors.length; ++i){
+            responce.push(new Slider3(selectors[i]))
+        }
+        return responce;
+        //console.log(document.getElementsByClassName(this.selector))
+    }
+
+    let sliders = Slider3.createSliders();
+
+    const previous = document.getElementById('previous')
+    const next = document.getElementById('next')
+
+    //const slider1 = new Slider3('slider1')
+    //const slider2 = new Slider3('slider2')
+
+    previous.addEventListener('click', () => {
+        sliders[0].goPrevious()
+    })
+
+    next.addEventListener('click', () => {
+        sliders[0].goNext()
+    })
+</script>
