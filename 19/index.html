@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <script src="ajaxloader.js" type="text/javascript"></script>
+        <script src="pglist.js" type="text/javascript"></script>
+        <script src="pgitem.js"></script>
+    </head>
+    <body>
+    </body>
+</html>
+<script type="text/javascript">
+    let component;
+    function route() {
+        let hash = location.hash;
+        const getRE = /get=(\d+)/i;
+        let result;
+        if (result = getRE.exec(hash))
+            component = new PGItem(result[1]);
+        else if (!hash)
+            component = new PGList();
+    }
+    window.addEventListener('hashchange', route);
+    route();
+</script>

@@ -20,23 +20,25 @@
 <script type="text/javascript">
     const draw = document.getElementById('draw')
     const ctx = draw.getContext('2d');
-    let languages_j = new Array()
     let i = 0
+    let ar = []
     function showData(response) {
          let parse = JSON.parse(response)
-            parse.data.forEach((el) => {
-                elm = [el.name, el.level]
+        //     parse.data.forEach((el) => {
+        //         elm = [el.name, el.level]
+        //
+        //         languages_j.push(elm)
+        // })
+        console.log(Object.entries(parse['data']).map((x) => {
+            delete (x, 0)
+        }));
 
-                languages_j.push(elm)
-        })
-       // languages_j.splice(0,1)
     }
-    console.log(languages_j)
-    //languages = languages_j
+
     const ajax = new AJAXLoader()
     ajax.load('17.5.json', showData)
 
-
+    console.log(languages)
     ctx.font = '20px sans-serif'
     let iwidth = 0, a;
     for (let i = 0; i < languages.length; ++i) {
