@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Столбчатая диаграмма</title>
+    <style type="text/css">
+        #draw {
+            display: block;
+            border: 1px dotted grey;
+        }
+    </style>
+    <script type="text/javascript" src="ajaxloader.js"></script>
+    <script src="14.5.js"></script>
+</head>
+<body>
+<h1>Столбчатая диаграмма</h1>
+<canvas id="draw" width="500" height="200"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+    const draw = document.getElementById('draw')
+    const ctx = draw.getContext('2d');
+    let languages_j = new Array()
+    let i = 0
+    function showData(response) {
+         let parse = JSON.parse(response)
+            parse.data.forEach((el) => {
+                elm = [el.name, el.level]
+
+                languages_j.push(elm)
+        })
+       // languages_j.splice(0,1)
+    }
+    console.log(languages_j)
+    //languages = languages_j
+    const ajax = new AJAXLoader()
+    ajax.load('17.5.json', showData)
+
+
+    ctx.font = '20px sans-serif'
+    let iwidth = 0, a;
+    for (let i = 0; i < languages.length; ++i) {
+        a = ctx.measureText(languages[i] [0]).width
+        if (a > iwidth)
+            iwidth = a
+    }
+    draw.width = iwidth * languages.length + 5 * (languages.length -1) + 25
+
+    ctx.font = '20px sans-serif'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'bottom'
+
+    const iheigth = draw.height - 25;
+    let xi, yi, grd
+
+    for (let i = 0; i < languages.length; ++i) {
+        a = iheigth * languages[i][1] / 100;
+        xi = i * (iwidth + 5) + 30;
+        yi = draw.height - a;
+        grd = ctx.createLinearGradient(xi, yi, xi, draw.height);
+        grd.addColorStop(0, 'black');
+        grd.addColorStop(1, 'lightgrey');
+        ctx.fillStyle = grd;
+        ctx.fillRect(xi, yi, iwidth, a);
+        ctx.fillStyle = 'black';
+        ctx.fillText(languages[i][0], xi + iwidth / 2, yi, iwidth);
+    }
+    ctx.beginPath();
+    ctx.moveTo(25, draw.height);
+    ctx.lineTo(25, 0);
+    ctx.stroke();
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'end';
+    let step = 0
+    for (let i = 110; i >= 0; i-=10){
+        ctx.strokeRect(0, step, 20, draw.height / 10)
+        ctx.font = '10px sans-serif'
+        ctx.fillText(i, 18, step)
+        step += draw.height / 10
+    }
+
+</script>

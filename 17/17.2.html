@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Загрузка HTML-файлов</title>
+        <style type="text/css">
+            nav {
+                position: fixed;
+                box-sizing: border-box;
+                left: 10px;
+                top: 70px;
+                width: 220px;
+                border: thin solid grey;
+            }
+            nav a {
+                display: block;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 18pt;
+                color: blue;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            section {
+                margin-left: 250px;
+            }
+        </style>
+        <script src="ajaxloader.js" defer></script>
+    </head>
+    <body>
+        <h1>Загрузка HTML-файлов</h1>
+        <nav>
+            <a href="fragments/vsc.html">Visual Studio Code</a>
+            <a href="fragments/atom.html">Atom</a>
+            <a href="fragments/notepadpp.html">Notepad++</a>
+        </nav>
+        <section id="output"></section>
+    </body>
+</html>
+<script>
+    const links = document.querySelectorAll('nav a')
+    //const output = document.getElementById('output')
+    /*const ajax = new XMLHttpRequest()
+    ajax.addEventListener('readystatechange', function () {
+        if (this.readyState == 4 && this.status == 200)
+            output.innerHTML = this.responseText
+    })*/
+
+    function loadHTML(evt) {
+        //ajax.open('GET', this.href, true)
+        //ajax.send()
+
+        AJAXLoader.loadHTML(this.href, 'output')
+        evt.preventDefault()
+    }
+
+    links.forEach((el) => {
+        el.addEventListener('click', loadHTML)
+    })
+</script>

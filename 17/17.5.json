@@ -1,0 +1,11 @@
+{
+    "year": 2018,
+    "data": [
+        {"name": "JavaScript", "level": 70},
+        {"name": "Java", "level": 45},
+        {"name": "Python", "level": 39},
+        {"name": "C#", "level": 34},
+        {"name": "PHP", "level": 31},
+        {"name": "C++", "level": 25}
+    ]
+}

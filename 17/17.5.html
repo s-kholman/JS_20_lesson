@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Уровень популярности языков программирования</title>
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+            table td:last-child {
+                width: 200px;
+            }
+            table td:last-child span {
+                display: block;
+                height: 1em;
+                background-color: black;
+            }
+        </style>
+        <script src="ajaxloader.js"></script>
+    </head>
+    <body>
+        <h1>Уровень популярности языков программирования</h1>
+        <p>Год: <span id="year"></span></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Язык</th>
+                    <th colspan="2">Популярность, %</th>
+                </tr>
+            </thead>
+            <tbody id="output">
+            </tbody>
+        </table>
+    <strong id="status"></strong>
+    <strong id="getHTML"></strong>
+
+    </body>
+</html>
+<script>
+    const year = document.getElementById('year')
+    const output = document.getElementById('output')
+    const status = document.getElementById('status')
+
+    function showData(response) {
+        let tr, td, span
+        let languages = JSON.parse(response)
+        year.textContent = languages.year
+        languages.data.forEach((el) => {
+            tr = document.createElement('tr')
+            td = document.createElement('td')
+            td.textContent = el.name
+            tr.appendChild(td)
+            td = document.createElement('td')
+            td.textContent = el.level
+            tr.appendChild(td)
+            td = document.createElement('td')
+            span = document.createElement('span')
+            span.style.width = el.level + '%'
+            td.appendChild(span)
+            tr.appendChild(td)
+            output.appendChild(tr)
+        })
+    }
+
+    function statusGet(statusGet){
+        let error = document.createElement('div')
+        error.textContent = statusGet
+        error.style.color = 'red'
+        status.appendChild(error)
+    }
+
+    const ajax = new AJAXLoader()
+    ajax.load('17.5.json', showData, statusGet)
+
+    AJAXLoader.loadHTML('loadhtml.html', 'getHTML', statusGet)
+
+</script>
